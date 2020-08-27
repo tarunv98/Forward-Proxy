@@ -1,5 +1,5 @@
 const net = require("net");
-const validateDest = require('./validateDest');
+const validateDest = require('./lib/validateDest');
 
 const proxyServer = net.createServer(); //this is a TCP server
 
