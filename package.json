@@ -1,0 +1,17 @@
+{
+  "name": "proxy",
+  "version": "1.0.0",
+  "description": "Proxies",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Proxy",
+    "Express",
+    "Node"
+  ],
+  "author": "Tarun Vasagiri",
+  "license": "ISC",
+  "dependencies": {}
+}
