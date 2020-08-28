@@ -4,8 +4,8 @@ Host Filtration + Activity Tracking (NodeJS)
 This is a simple NodeJS Forward Proxy application where you can configure the host filteration.
 
 Features:
-> Able to block any number of websites or IP addresses
-> Able to track activity of client at all times
+- Able to block any number of websites or IP addresses
+- Able to track activity of client at all times
 
 1. Run proxy.js file
    $ node proxy.js
