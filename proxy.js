@@ -1,5 +1,6 @@
 const net = require("net");
 const validateDest = require('./lib/validateDest');
+const fs = require("fs");
 
 const proxyServer = net.createServer(); //this is a TCP server
 
@@ -24,7 +25,8 @@ proxyServer.on('connection', (clientToProxy) => {
     if(validateDest.validateDestAddr(dest_ADDR)){ //Host based filtering
       let proxyToDestServer = net.createConnection({port: dest_PORT, host: dest_ADDR}).on('connect', () => {
         console.log("[PROXY] Connection to destination is setup", dest_ADDR, dest_PORT);
-  
+        fs.appendFile('history.txt', `\n [PROXY][CONNECTED] Client ${clientToProxy.remoteAddress} opened ${dest_ADDR} at ${new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}`, () => {});
+
         if (isTLS) {
           clientToProxy.write("HTTP/1.1 200 OK\r\n\n");
         } else {
@@ -44,8 +46,9 @@ proxyServer.on('connection', (clientToProxy) => {
         });
       })
     }else{
-        clientToProxy.write(Buffer.from("!!!!!!!!!!!!!!!!!!!!!! CONTENT BLOCKED BY FIREWALL !!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
-        clientToProxy.end();
+      fs.appendFile('history.txt', `\n [PROXY][BLOCKED] Client ${clientToProxy.remoteAddress} tried to open ${dest_ADDR} at ${new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}`, () => {});
+      clientToProxy.write(Buffer.from("!!!!!!!!!!!!!!!!!!!!!! CONTENT BLOCKED BY FIREWALL !!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
+      clientToProxy.end();
     }
    
     clientToProxy.on('error', err => {
