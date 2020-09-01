@@ -1,11 +1,13 @@
 # Forward-Proxy 1.0
 Host Filtration + Activity Tracking (NodeJS)
 
-This is a simple NodeJS Forward Proxy application where you can configure the host filteration.
+*This is a simple NodeJS Forward Proxy application where you can configure the host filteration.*
 
-Features:
+**Features:**
 * Able to block any number of websites or IP addresses
 * Able to track activity of client at all times
+
+**Instructions:**
 
 1. Run proxy.js file
 ```
