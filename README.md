@@ -15,7 +15,7 @@ Host Filtration + Activity Tracking (NodeJS)
 ```
 2. Configure your proxy setings to IP: 127.0.0.1 || port: 8888
 
-Thats it!!
+:v:Thats it!!:v:
 
 3. To configure the settings:
    Open lib/BLOCKED_IPS.js on your text editor and add IPs in BLOCKED_IPS and hostnames in BLOCKED_HOSTS. This will block all traffic to those Blocked IPs and        hosts.
