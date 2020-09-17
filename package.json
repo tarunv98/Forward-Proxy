@@ -2,7 +2,7 @@
   "name": "proxy",
   "version": "1.0.0",
   "description": "Proxies",
-  "main": "index.js",
+  "main": "proxy.js",
   "scripts": {
     "test": "test"
   },

@@ -25,7 +25,7 @@ proxyServer.on('connection', (clientToProxy) => {
     if(validateDest.validateDestAddr(dest_ADDR)){ //Host based filtering
       let proxyToDestServer = net.createConnection({port: dest_PORT, host: dest_ADDR}).on('connect', () => {
         console.log("[PROXY] Connection to destination is setup", dest_ADDR, dest_PORT);
-        fs.appendFile('history.txt', `\n [PROXY][CONNECTED] Client ${clientToProxy.remoteAddress} opened ${dest_ADDR} at ${new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}`, () => {});
+        writeHistory('history.txt', `\n [PROXY][CONNECTED] Client ${clientToProxy.remoteAddress} opened ${dest_ADDR} at ${new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}`, () => {});
 
         if (isTLS) {
           clientToProxy.write("HTTP/1.1 200 OK\r\n\n");
@@ -46,7 +46,7 @@ proxyServer.on('connection', (clientToProxy) => {
         });
       })
     }else{
-      fs.appendFile('history.txt', `\n [PROXY][BLOCKED] Client ${clientToProxy.remoteAddress} tried to open ${dest_ADDR} at ${new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}`, () => {});
+      writeHistory('history.txt', `\n [PROXY][BLOCKED] Client ${clientToProxy.remoteAddress} tried to open ${dest_ADDR} at ${new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}`, () => {});
       clientToProxy.write(Buffer.from("!!!!!!!!!!!!!!!!!!!!!! CONTENT BLOCKED BY FIREWALL !!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
       clientToProxy.end();
     }
@@ -73,3 +73,18 @@ proxyServer.on('close', () => {
 proxyServer.listen(8888, () => {
   console.log("[PROXY] PROXY RUNNING ON PORT 8888")
 });
+
+/**
+ * 
+ * @param {string} file - path to file in which data to be appended
+ * @param {string} data - data to be appended
+ * @param {function} [callback] - incase there is any callback function to be executed
+ */
+function writeHistory(file, data, callback){
+  try{
+    fs.appendFile(file, data, () => {});
+  } catch(err){
+    console.log("[PROXY][HISTORY][ERROR]");
+    console.log(err);
+  }
+}
